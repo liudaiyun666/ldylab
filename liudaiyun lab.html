@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDY Lab | 山东大学生态环境损害鉴定研究院</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#059669',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .paper-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #1e40af 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-content {
+            max-width: 90%; max-height: 90%;
+            position: relative;
+        }
+        .lightbox-img {
+            max-width: 100%; max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.4); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .pdf-embed {
+            width: 100%; height: 85vh;
+            border: none;
+            border-radius: 8px;
+            background: white;
+        }
+        .design-tag {
+            position: absolute;
+            top: 12px; left: 12px;
+            background: rgba(255,255,255,0.95);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #059669;
+        }
+        .design-card {
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/95 backdrop-blur-sm border-b border-gray-100 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-sm"></div>
+                    <span class="font-bold text-xl tracking-tight">LDY Lab</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-gray-700 hover:text-primary transition">关于</a>
+                    <a href="#research" class="text-gray-700 hover:text-primary transition">研究</a>
+                    <a href="#publications" class="text-gray-700 hover:text-primary transition">论文</a>
+                    <a href="#design" class="text-gray-700 hover:text-primary transition font-medium text-secondary">方案</a>
+                    <a href="#team" class="text-gray-700 hover:text-primary transition">团队</a>
+                    <a href="#contact" class="text-gray-700 hover:text-primary transition">联系</a>
+                </div>
+                <div class="md:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-4 pt-2 pb-3 space-y-1">
+                <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-primary">关于</a>
+                <a href="#research" class="block px-3 py-2 text-gray-700 hover:text-primary">研究</a>
+                <a href="#publications" class="block px-3 py-2 text-gray-700 hover:text-primary">论文</a>
+                <a href="#design" class="block px-3 py-2 text-secondary font-medium">方案</a>
+                <a href="#team" class="block px-3 py-2 text-gray-700 hover:text-primary">团队</a>
+                <a href="#contact" class="block px-3 py-2 text-gray-700 hover:text-primary">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="about" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="max-w-4xl fade-in-up">
+            <div class="inline-block bg-blue-50 text-primary text-sm font-medium px-4 py-2 rounded-full mb-6">
+                山东大学 生态环境损害鉴定研究院
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                理解环境变化<br>
+                <span class="gradient-text">影响人类福祉</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
+                从气候变化到空气污染，从碳足迹核算到健康风险评估，
+                运用数据科学和环境经济学方法寻找可持续发展解决方案。
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#research" class="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-800 transition shadow-lg shadow-blue-500/30">
+                    探索研究
+                </a>
+                <a href="#publications" class="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:border-primary hover:text-primary transition">
+                    查看论文
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Areas -->
+    <section id="research" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-4 text-center">研究方向</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+                聚焦环境变化与人类健康的交叉领域，发展多学科融合的研究方法
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl paper-card transition-all duration-300 border border-gray-100">
+                    <div class="w-14 h-14 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">气候变化与低碳</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">量化碳足迹，明确高碳排放领域低碳减排路径，为"双碳"目标提供科学支撑。</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded">碳足迹核算</span>
+                        <span class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded">减排路径</span>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl paper-card transition-all duration-300 border border-gray-100">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">环境健康</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">研究污染物来源、传输及健康影响，评估环境损害与人体健康风险的关联机制。</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded">暴露评估</span>
+                        <span class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded">健康风险</span>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl paper-card transition-all duration-300 border border-gray-100">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">数据科学</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">开发机器学习工具用于卫星图像分析，构建环境大数据智能分析平台。</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded">机器学习</span>
+                        <span class="text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded">遥感分析</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Publications -->
+    <section id="publications" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">代表性论文</h2>
+                    <p class="text-gray-600">聚焦碳足迹核算与环境影响评估的高水平研究</p>
+                </div>
+                <a href="https://scholar.google.com/citations?user=YOUR_ID" target="_blank" class="text-primary font-medium hover:underline flex items-center gap-1">
+                    Google Scholar主页 →
+                </a>
+            </div>
+            <div class="space-y-6">
+                <div class="paper-card bg-white border border-gray-200 p-6 rounded-xl transition-all hover:border-primary/30">
+                    <div class="flex flex-col md:flex-row md:items-start gap-6">
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-2 mb-3">
+                                <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">Journal of Cleaner Production</span>
+                                <span class="text-gray-500 text-sm font-medium">2025</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded">Q1 TOP</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-primary cursor-pointer transition">
+                                Explaining carbon footprint in maize production: A driving analysis of climate-soil-farming interactions in China
+                            </h3>
+                            <p class="text-gray-600 text-sm mb-3 font-medium">Daiyun Liu, Bailin He, Zhiyuan Duan, et al.</p>
+                            <p class="text-gray-700 text-sm leading-relaxed mb-4">本研究系统核算了中国玉米生产全生命周期的碳足迹，识别了高碳排放环节，并提出了针对性的低碳减排策略，为农业领域实现"双碳"目标提供了科学依据。</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">生命周期评价</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">碳足迹</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">农业减排</span>
+                            </div>
+                        </div>
+                        <div class="flex md:flex-col gap-2">
+                            <a href="https://www.sciencedirect.com/science/article/pii/S0959652625017925" target="_blank" class="text-sm border border-gray-300 px-4 py-2 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition text-center">查看论文 ↗</a>
+                            <button class="text-sm border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 transition">引用 0</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="paper-card bg-white border border-gray-200 p-6 rounded-xl transition-all hover:border-primary/30">
+                    <div class="flex flex-col md:flex-row md:items-start gap-6">
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-2 mb-3">
+                                <span class="bg-orange-100 text-orange-800 text-xs font-bold px-3 py-1 rounded-full">Energy and Buildings</span>
+                                <span class="text-gray-500 text-sm font-medium">2026</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded">Q1</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-primary cursor-pointer transition">
+                                Carbon emissions characteristics of educational buildings in severe cold regions of northern China from life cycle perspective
+                            </h3>
+                            <p class="text-gray-600 text-sm mb-3 font-medium">Daiyun Liu, Bailin He, Liyuan Chen, et al.</p>
+                            <p class="text-gray-700 text-sm leading-relaxed mb-4">针对建筑领域碳排放特征，构建了精细化核算模型，分析了不同建筑类型和运行阶段的排放规律，为城市建筑节能减排政策制定提供了数据支撑。</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">建筑碳排放</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">能耗模拟</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">减排策略</span>
+                            </div>
+                        </div>
+                        <div class="flex md:flex-col gap-2">
+                            <a href="https://www.sciencedirect.com/science/article/pii/S0378778825016615" target="_blank" class="text-sm border border-gray-300 px-4 py-2 rounded-lg hover:bg-primary hover:text-white hover:border-primary transition text-center">查看论文 ↗</a>
+                            <button class="text-sm border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 transition">引用 0</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-primary">2</div>
+                    <div class="text-sm text-gray-600">发表论文</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-primary">2</div>
+                    <div class="text-sm text-gray-600">Q1期刊</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-primary">2025</div>
+                    <div class="text-sm text-gray-600">首发年份</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="text-2xl font-bold text-primary">JCP</div>
+                    <div class="text-sm text-gray-600">顶刊发表</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Section (方案) - 上下结构已独立 -->
+    <section id="design" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-4 text-center">设计方案</h2>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+                低碳视角下的景观与城市设计实践，融合生态与美学
+            </p>
+
+            <!-- 过滤标签 -->
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <button onclick="filterDesigns('all')" class="design-filter active px-4 py-2 rounded-full text-sm font-medium bg-secondary text-white transition" data-filter="all">全部作品</button>
+                <button onclick="filterDesigns('park')" class="design-filter px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 hover:bg-green-100 transition" data-filter="park">公园绿地</button>
+                <button onclick="filterDesigns('urban')" class="design-filter px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 hover:bg-green-100 transition" data-filter="urban">城市更新</button>
+            </div>
+
+            <!-- 设计网格 -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="design-grid">
+                <!-- 项目 1 -->
+                <div class="design-card bg-white rounded-xl overflow-hidden shadow-md cursor-pointer transition-all duration-300" data-category="park">
+                    <div class="relative h-64 bg-gray-200 overflow-hidden">
+                      <img src="images/设计图1.jpg" alt="低碳生态公园设计" class="w-full h-full object-cover">
+                        <span class="design-tag">公园绿地</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-2 text-gray-900">低碳生态公园设计</h3>
+                        <p class="text-gray-600 text-sm mb-3">融合碳汇计算与景观美学，打造零碳排放示范园区</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">2024 | 课程设计</span>
+                            <a href="低碳公园.html" class="text-secondary text-sm font-medium">查看详情 →</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 项目 2 -->
+                <div class="design-card bg-white rounded-xl overflow-hidden shadow-md cursor-pointer transition-all duration-300" data-category="urban">
+                    <div class="relative h-64 bg-gray-200 overflow-hidden">
+                        <img src="images/设计图2.jpg" alt="城市更新与绿色街道" class="w-full h-full object-cover">
+                        <span class="design-tag">城市更新</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-2 text-gray-900">绿色建筑改造计划</h3>
+                        <p class="text-gray-600 text-sm mb-3">结合山水建筑理念，提升建筑生态韧性与公共空间品质</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">2025 | 研究课题</span>
+                            <a href="山水建筑.html" class="text-secondary text-sm font-medium">查看详情 →</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 项目 3 -->
+                <div class="design-card bg-white rounded-xl overflow-hidden shadow-md cursor-pointer transition-all duration-300" data-category="park">
+                    <div class="relative h-64 bg-gray-200 overflow-hidden">
+                        <img src="images/设计图3.jpg" alt="湿地碳汇公园" class="w-full h-full object-cover">
+                        <span class="design-tag">公园绿地</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-2 text-gray-900">湿地碳汇公园</h3>
+                        <p class="text-gray-600 text-sm mb-3">基于自然的解决方案，提升碳汇能力与生物多样性</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-500">2024 | 竞赛作品</span>
+                            <a href="湿地公园.html" class="text-secondary text-sm font-medium">查看详情 →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section (独立 section) -->
+    <section id="team" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-4 text-center">研究团队</h2>
+            <p class="text-gray-600 text-center mb-12">跨学科背景的研究人员，致力于环境科学创新</p>
+            
+            <!-- PI 卡片 -->
+            <div class="max-w-3xl mx-auto mb-16">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    <div class="md:flex">
+                        <div class="md:w-1/3 bg-gradient-to-br from-primary to-secondary p-8 flex items-center justify-center">
+                            <div class="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center text-white text-4xl font-bold border-4 border-white/30" style="background-image: url('images/刘岱云照片.jpg'); background-size: cover; background-position: center;">
+                               
+                            </div>
+                        </div>
+                        <div class="md:w-2/3 p-8">
+                            <div class="flex items-center gap-2 mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">刘岱云</h3>
+                                <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">PI</span>
+                            </div>
+                            <p class="text-primary font-medium mb-4">博士研究生</p>
+                            <p class="text-gray-600 mb-4 leading-relaxed">
+                                硕士毕业于吉林大学，现就读于山东大学生态环境损害鉴定研究院。研究方向为环境规划与管理，聚焦碳足迹核算、环境健康风险评估与数据科学方法。
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">气候归因</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">机器学习</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">环境健康</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="mailto:dyliu23@mails.jlu.edu.cn" class="text-gray-500 hover:text-primary transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                </a>
+                                <a href="#" class="text-gray-500 hover:text-primary transition">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                </a>
+                                <a href="#" class="text-gray-500 hover:text-primary transition">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 团队成员网格（示例） -->
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="w-24 h-24 bg-gray-300 rounded-full mx-auto mb-3 overflow-hidden">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="成员1" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-bold text-lg">张明</h4>
+                    <p class="text-sm text-gray-500">博士研究生</p>
+                    <p class="text-xs text-gray-400 mt-2">研究方向：环境大数据分析</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="w-24 h-24 bg-gray-300 rounded-full mx-auto mb-3 overflow-hidden">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="成员2" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-bold text-lg">李芳</h4>
+                    <p class="text-sm text-gray-500">硕士研究生</p>
+                    <p class="text-xs text-gray-400 mt-2">研究方向：碳足迹与低碳政策</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="w-24 h-24 bg-gray-300 rounded-full mx-auto mb-3 overflow-hidden">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="成员3" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-bold text-lg">王浩然</h4>
+                    <p class="text-sm text-gray-500">科研助理</p>
+                    <p class="text-xs text-gray-400 mt-2">研究方向：遥感与GIS应用</p>
+                </div>
+            </div>
+            <p class="text-center text-gray-400 text-sm mt-10">团队正在扩充中，欢迎志同道合的研究者加入</p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">联系我们</h2>
+                    <p class="text-gray-400 mb-8 leading-relaxed">欢迎学术合作、学生申请或研究咨询。我们致力于推动环境科学的前沿研究，期待与国内外同行建立合作关系。</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+                            <div><h4 class="font-medium mb-1">电子邮箱</h4><a href="mailto:dyliu23@mails.jlu.edu.cn" class="text-gray-400 hover:text-white transition">dyliu23@mails.jlu.edu.cn</a></div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+                            <div><h4 class="font-medium mb-1">办公地址</h4><p class="text-gray-400">山东大学 生态环境损害鉴定研究院</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10">
+                    <h3 class="text-xl font-bold mb-6">快速联系</h3>
+                    <form class="space-y-4" onsubmit="event.preventDefault(); alert('请直接发送邮件至 dyliu23@mails.jlu.edu.cn');">
+                        <div><label class="block text-sm font-medium mb-2">姓名</label><input type="text" class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-500" placeholder="您的姓名"></div>
+                        <div><label class="block text-sm font-medium mb-2">邮箱</label><input type="email" class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-500" placeholder="your@email.com"></div>
+                        <div><label class="block text-sm font-medium mb-2">留言</label><textarea rows="4" class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-primary text-white placeholder-gray-500" placeholder="请输入您的合作意向或问题..."></textarea></div>
+                        <button type="submit" class="w-full bg-primary hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-950 text-gray-500 py-8 text-center text-sm border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="mb-2">&copy; 2025 刘岱云的实验室 | 山东大学 生态环境损害鉴定研究院</p>
+            <p class="text-xs text-gray-600">研究方向：环境规划与管理、碳足迹核算、环境健康</p>
+        </div>
+    </footer>
+
+    <script>
+        // 方案过滤功能
+        function filterDesigns(category) {
+            const cards = document.querySelectorAll('#design-grid .design-card');
+            cards.forEach(card => {
+                const cat = card.getAttribute('data-category');
+                if (category === 'all' || cat === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            // 更新按钮样式
+            document.querySelectorAll('.design-filter').forEach(btn => {
+                btn.classList.remove('bg-secondary', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-600');
+                if ((category === 'all' && btn.getAttribute('data-filter') === 'all') ||
+                    (category === btn.getAttribute('data-filter'))) {
+                    btn.classList.remove('bg-white', 'text-gray-600');
+                    btn.classList.add('bg-secondary', 'text-white');
+                }
+            });
+        }
+        // 初始显示全部
+        filterDesigns('all');
+    </script>
+</body>
+</html>
