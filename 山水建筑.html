@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山水建筑 | 山地公园游客服务中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+        .img-hover {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .img-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <a href="liudaiyun lab.html" class="text-primary font-bold text-xl flex items-center gap-2">
+                ← 返回主页
+            </a>
+            <span class="text-gray-600 text-sm">山水建筑 · 山地公园游客服务中心</span>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- 1. 建筑整体效果图 -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">整体效果图</h2>
+            <div class="rounded-xl overflow-hidden shadow-lg bg-white">
+                <img src="建筑/1.jpg" alt="建筑整体效果图" 
+                     class="w-full h-auto cursor-pointer img-hover" 
+                     onclick="openLightbox(this.src)">
+                <div class="text-center text-sm text-gray-400 py-2 bg-gray-50"></div>
+            </div>
+        </section>
+
+        <!-- 2. 设计说明 + 区位图 (并排) -->
+        <section class="mb-16 space-y-8">
+            <div class="bg-white p-6 rounded-2xl shadow-md">
+                <h3 class="text-xl font-bold text-primary mb-4">📐 设计说明</h3>
+                <div class="prose prose-gray max-w-none">
+                    <p class="mb-4"><strong>Part1: 设计理念</strong><br>
+        场地位于山东省济南市某山地公园内，东侧与北侧紧邻园内道路，西侧为公园绿地，北靠山脉、南临湖泊。设计以“山水共生·绿色焕新”为核心，将原有建筑改造为低碳生态型游客服务中心，强化建筑与自然山水的有机融合，提升公共空间的生态韧性与使用品质。</p>
+        
+        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+            <li><strong>山水建筑形态：</strong>屋顶延续山脉起伏意象，采用绿色种植屋面，有效降低热岛效应，收集雨水用于景观灌溉，实现建筑与自然景观的视觉与生态延续。</li>
+            <li><strong>绿色改造策略：</strong>保留主体结构，增加外遮阳系统、自然通风烟囱及高保温围护结构；利用南向湖景与北向山风，优化室内自然通风与采光，减少空调能耗。</li>
+            <li><strong>生态韧性提升：</strong>场地内设置透水铺装、雨水花园及下沉式绿地，构建海绵系统；选用本土耐旱植物，提高生物多样性，增强场地应对极端降雨的韧性。</li>
+            <li><strong>公共空间品质：</strong>建筑主入口朝南正对古树名木，形成视觉通廊；北侧入口结合山地地形设置观景平台，将湖光山色引入室内；办公与游客流线分离，提供高品质服务体验。</li>
+            <li><strong>经济技术指标：</strong>
+                            <ul class="list-none pl-4 mt-1">
+                                <li>占地面积：440.20 m²</li>
+                                <li>二层建筑面积：375.50 m²</li>
+                                <li>建筑总面积：632.40 m²</li>
+                                <li>容积率：0.44</li>
+                                <li>绿化率：46%</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-md">
+                <h3 class="text-xl font-bold text-primary mb-4">📍 区位分析</h3>
+                <div class="rounded-lg overflow-hidden border border-gray-200">
+                    <img src="建筑/6.jpg" alt="区位图" 
+                         class="w-full h-auto cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                </div>
+                <div class="text-center text-sm text-gray-400 mt-2"></div>
+            </div>
+        </section>
+
+        <!-- 3. 经济技术指标（单独强调卡片） -->
+        <section class="mb-16 bg-gradient-to-r from-blue-50 to-emerald-50 p-6 rounded-2xl">
+            <h3 class="text-xl font-bold text-center text-gray-800 mb-4">📊 经济技术指标</h3>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+                <div class="bg-white p-3 rounded-lg shadow"><span class="block text-2xl font-bold text-primary">440.20</span><span class="text-sm">占地面积(m²)</span></div>
+                <div class="bg-white p-3 rounded-lg shadow"><span class="block text-2xl font-bold text-primary">375.50</span><span class="text-sm">二层面积(m²)</span></div>
+                <div class="bg-white p-3 rounded-lg shadow"><span class="block text-2xl font-bold text-primary">632.40</span><span class="text-sm">总面积(m²)</span></div>
+                <div class="bg-white p-3 rounded-lg shadow"><span class="block text-2xl font-bold text-primary">0.44</span><span class="text-sm">容积率</span></div>
+                <div class="bg-white p-3 rounded-lg shadow"><span class="block text-2xl font-bold text-primary">46%</span><span class="text-sm">绿化率</span></div>
+            </div>
+        </section>
+
+        <!-- 4. 爆炸分析图（修改为一张） -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">💥 爆炸分析图</h2>
+            <div class="flex justify-center">
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg max-w-3xl w-full">
+                    <img src="建筑/2.jpg" alt="爆炸分析图" 
+                         class="w-full h-auto cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-3 text-center text-sm text-gray-500 bg-gray-50">建筑构件拆解及空间结构分析示意</div>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400 mt-3"></div>
+        </section>
+
+        <!-- 5. 总平面图、剖面图、立面图 -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">📐 技术图纸</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="建筑/3.jpg" alt="总平面图" 
+                         class="w-full h-48 object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-2 text-center font-medium">总平面图</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="建筑/4.jpg" alt="剖面图" 
+                         class="w-full h-48 object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-2 text-center font-medium">剖面图</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="建筑/5.jpg" alt="立面图" 
+                         class="w-full h-48 object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-2 text-center font-medium">立面图</div>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400 mt-2"></div>
+        </section>
+
+        <!-- 6. 四张效果图 -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">✨ 建筑效果图</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="建筑/9.jpg" alt="效果图1" 
+                         class="w-full h-48 object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-2 text-center text-sm">日景鸟瞰</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="建筑/8.jpg" alt="效果图2" 
+                         class="w-full h-48 object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-2 text-center text-sm">夜景透视</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="建筑/10.jpg" alt="效果图3" 
+                         class="w-full h-48 object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-2 text-center text-sm">主入口视角</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="建筑/7.jpg" alt="效果图4" 
+                         class="w-full h-48 object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-2 text-center text-sm">内部展厅</div>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400 mt-2"></div>
+        </section>
+
+        <div class="text-center pt-8">
+            <a href="#" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-full text-sm transition">↑ 回到顶部</a>
+        </div>
+    </main>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+        <img id="lightbox-img" src="" alt="放大图片">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox(event) {
+            if (event.target === document.getElementById('lightbox') || event.target.classList.contains('lightbox-close')) {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+        document.getElementById('lightbox-img').addEventListener('click', (e) => e.stopPropagation());
+    </script>
+</body>
+</html>

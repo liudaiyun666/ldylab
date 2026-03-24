@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>湿地公园 | 泮河生态湿地公园设计</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+        .img-hover {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .img-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        .equal-height {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .equal-height > * {
+            flex: 1;
+            min-width: 200px;
+        }
+        /* 确保三张图片容器高度一致 */
+        .analysis-card {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .analysis-card img {
+            width: 100%;
+            height: 480px; /* 固定高度保证一致，可根据实际调整 */
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .analysis-card img {
+                height: 200px;
+            }
+        }
+        /* 植物分析中方形图片容器 */
+        .square-img {
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- 顶部导航 -->
+    <div class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <a href="liudaiyun lab.html" class="text-primary font-bold text-xl flex items-center gap-2">
+                ← 返回主页
+            </a>
+            <span class="text-gray-600 text-sm">泮河生态湿地公园 · 综合性生态城市湿地公园</span>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- 1. 整体效果图 -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">整体鸟瞰效果图</h2>
+            <div class="rounded-xl overflow-hidden shadow-lg bg-white">
+                <img src="湿地公园/设计图3.jpg" alt="湿地公园整体效果图" 
+                     class="w-full h-auto cursor-pointer img-hover" 
+                     onclick="openLightbox(this.src)">
+                <div class="text-center text-sm text-gray-400 py-2 bg-gray-50"></div>
+            </div>
+        </section>
+
+        <!-- 2. 设计说明 -->
+        <section class="mb-16">
+            <div class="bg-white p-6 rounded-2xl shadow-md">
+                <h3 class="text-xl font-bold text-primary mb-4">📖 设计说明</h3>
+                <div class="prose prose-gray max-w-none text-gray-700 leading-relaxed">
+                    <p>设计上，运用农田、密林、果园、湿地岛链等大地景观的手法展示泮河公园自然之美，同时融入泰安历史展现泰山汶河时代文化内涵；生态上，通过人工潜流、表流湿地最大限度解决水质污染问题的同时，以乾坤湖为核心营造白鹭生境；城市休闲方面，充分考虑城市综合公园的需求，提供满足市民休闲的活动场地及慢行步道。最终将泮河公园打造成展示海绵理念、满足市民休闲需求、展示泰安景观特色的综合性生态城市湿地公园。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 三张并排分析图：区位分析、现状分析、爆炸分析（高度一致，宽度不同） -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">场地分析</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 区位分析 -->
+                <div class="analysis-card">
+                    <img src="湿地公园/2.jpg" alt="区位分析图" 
+                         class="cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-3 text-center font-medium bg-white">区位分析</div>
+                </div>
+                <!-- 现状分析 -->
+                <div class="analysis-card">
+                    <img src="湿地公园/3.jpg" alt="现状分析图" 
+                         class="cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-3 text-center font-medium bg-white">现状分析</div>
+                </div>
+                <!-- 爆炸分析 -->
+                <div class="analysis-card">
+                    <img src="湿地公园/4.jpg" alt="爆炸分析图" 
+                         class="cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-3 text-center font-medium bg-white">爆炸分析</div>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400 mt-3"></div>
+        </section>
+ 
+ <!-- 4. 总平面图（单张大图） -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">总平面图</h2>
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+                <img src="湿地公园/1.jpg" alt="总平面图" 
+                     class="w-full h-auto cursor-pointer img-hover" 
+                     onclick="openLightbox(this.src)">
+                <div class="text-center text-sm text-gray-400 py-2 bg-gray-50"></div>
+            </div>
+        </section>
+
+        <!-- 4. 设计分析图（单张大图） -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">设计分析</h2>
+            <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+                <img src="湿地公园/5.jpg" alt="设计分析图" 
+                     class="w-full h-auto cursor-pointer img-hover" 
+                     onclick="openLightbox(this.src)">
+                <div class="text-center text-sm text-gray-400 py-2 bg-gray-50"></div>
+            </div>
+        </section>
+
+        <!-- 5. 植物分析：一张横图 + 一张方形图（并排） -->
+        <section class="mb-16">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">植物专项设计</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
+        <!-- 横向植物分区设计 (占3/4) -->
+        <div class="md:col-span-3 bg-white rounded-xl overflow-hidden shadow-md flex flex-col">
+            <div class="flex-1 overflow-hidden">
+                    <img src="湿地公园/6.jpg" alt="植物分区设计" 
+                        class="w-full h-full object-cover cursor-pointer img-hover" 
+                     onclick="openLightbox(this.src)">
+            </div>
+            <div class="p-3 text-center font-medium">植物分区设计</div>
+        </div>
+        <!-- 方形五感花园植物设计 (占1/4) -->
+        <div class="md:col-span-1 bg-white rounded-xl overflow-hidden shadow-md flex flex-col">
+            <div class="flex-1 overflow-hidden">
+                    <img src="湿地公园/7.jpg" alt="五感花园植物设计" 
+                         class="w-full h-full object-cover cursor-pointer img-hover" 
+                     onclick="openLightbox(this.src)">
+            </div>
+            <div class="p-3 text-center font-medium">五感花园植物设计</div>
+        </div>
+    </div>
+    <div class="text-center text-sm text-gray-400 mt-3"></div>
+</section>
+
+        <!-- 6. 四组景点设计图（一排两张，共两排） -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-l-4 border-primary pl-4">核心景点设计</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="湿地公园/8.jpg" alt="景点1" 
+                         class="w-full h-[450px] md:h-[450px] object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-3 text-center font-medium">溶解城市|唤醒农田记忆</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="湿地公园/9.jpg" alt="景点2" 
+                         class="w-full h-[450px] md:h-[450px] object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-3 text-center font-medium">模拟自然|恢复生态活力</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="湿地公园/10.jpg" alt="景点3" 
+                         class="w-full h-[450px] md:h-[450px] object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-3 text-center font-medium">借景造景|打造文化视廊</div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="湿地公园/11.jpg" alt="景点4" 
+                         class="w-full h-[450px] md:h-[450px] object-cover cursor-pointer img-hover" 
+                         onclick="openLightbox(this.src)">
+                    <div class="p-3 text-center font-medium">城市山林|意境画境生境</div>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400 mt-3"></div>
+        </section>
+
+        <div class="text-center pt-8">
+            <a href="#" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-full text-sm transition">↑ 回到顶部</a>
+        </div>
+    </main>
+
+    <!-- 灯箱 -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+        <img id="lightbox-img" src="" alt="放大图片">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox(event) {
+            if (event.target === document.getElementById('lightbox') || event.target.classList.contains('lightbox-close')) {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+        document.getElementById('lightbox-img').addEventListener('click', (e) => e.stopPropagation());
+    </script>
+</body>
+</html>
